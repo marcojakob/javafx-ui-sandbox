@@ -12,7 +12,7 @@
 			<fileset dir="${basedir}/bin" />
 			<fileset dir="${basedir}/src" includes="**/*.java" />
 			<fileset file="${basedir}/LICENSE" />
-			<fileset file="${basedir}/README.md" />
+			<fileset file="${basedir}/../README.md" />
 		</jar>
 	</target>
 </project>

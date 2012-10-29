@@ -82,15 +82,7 @@ import com.sun.javafx.scene.control.skin.resources.ControlResources;
  * A class containing a number of pre-built JavaFX modal dialogs.
  * <p>
  * Note: This is a copy of the official OpenJFX UI Sandbox Control revision rt-9e5ef340d95f.
- * It contains some modifications:
- * <ul>
- *   <li>Use of a separate css file</li>
- *   <li>Fixed bug: Input dialog did only return String from text box if enter was used. Buttons 
- * 				did not work.</li>
- * 	 <li>Fixed bug: Input dialog with input choices did not return the initially selected object
- * 				if the combo box was not changed by the user.</li>
- * 	 <li>Using binding for user input response.</li>
- * </ul>
+ * Changes are marked and described in the readme file.
  * 
  * @author OpenJFX Authors
  * @author Marco Jakob (http://edu.makery.ch)
@@ -793,7 +785,8 @@ public class Dialogs {
         }
 
         private Node createCenterContent() {
-            if (style == DialogStyle.SIMPLE) {
+        	// !CHANGE START!
+            if (style == DialogStyle.SIMPLE || style == DialogStyle.ERROR) {
                 if (contentString != null) {
                     UITextArea ta = new UITextArea(contentString);
                     ta.getStyleClass().add("center-content-area");
@@ -802,7 +795,6 @@ public class Dialogs {
                 }
             } else if (style == DialogStyle.INPUT) {
                 Control inputControl = null;
-                // !CHANGE START!
                 userInputResponse = new SimpleObjectProperty<T>();
                 if (inputChoices == null || inputChoices.isEmpty()) {
                     // no input constraints, so use a TextField
