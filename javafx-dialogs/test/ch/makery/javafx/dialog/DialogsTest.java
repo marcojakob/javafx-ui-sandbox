@@ -3,11 +3,9 @@ package ch.makery.javafx.dialog;
 import java.util.ArrayList;
 import java.util.List;
 
-import ch.makery.javafx.dialog.Dialogs;
-import ch.makery.javafx.dialog.Dialogs.DialogResponse;
-
 import javafx.application.Application;
 import javafx.stage.Stage;
+import ch.makery.javafx.dialog.Dialogs.DialogResponse;
 
 /**
  * Just some simple system.out tests. I didn't want to use a testing framework for this.
@@ -42,6 +40,8 @@ public class DialogsTest extends Application {
 		
 		DialogResponse response = Dialogs.showConfirmDialog(primaryStage, "a confirmation");
 		System.out.println("Confirmation Response: " + response);
+		
+		Dialogs.showErrorDialog(primaryStage, "message", "masterhead", "title", new NullPointerException("hmm"));
 	}
 
 	public static void main(String[] args) {

@@ -8,6 +8,7 @@ This GitHub project provides **simple `jar` files** for some of those sandbox co
 JavaFX Dialogs are simple dialogs in the style of [JOptionPane](http://docs.oracle.com/javase/tutorial/uiswing/components/dialog.html) from Swing.
 
 ![JavaFX Screenshots](https://raw.github.com/marcojakob/javafx-ui-sandbox/master/img/javafx-dialogs-screenshots.png)
+*Image Source: http://fxexperience.com/2012/10/announcing-the-javafx-ui-controls-sandbox/*
 
 ### Usage ###
 For examples of how to use them see this blog post.
