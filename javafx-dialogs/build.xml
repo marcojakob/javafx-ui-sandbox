@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<project default="main">
+	<property name="version">0.0.1</property>
+
+	<property name="targetFolder">target</property>
+	<property name="jarName">makery-javafx-dialogs-${version}.jar</property>
+
+	<target name="main" depends="jar" />
+
+	<target name="jar" description="Package into JAR" >
+		<jar destfile="${targetFolder}/${jarName}" compress="true">
+			<fileset dir="${basedir}/bin" />
+			<fileset dir="${basedir}/src" includes="**/*.java" />
+			<fileset file="${basedir}/LICENSE" />
+		</jar>
+	</target>
+</project>
