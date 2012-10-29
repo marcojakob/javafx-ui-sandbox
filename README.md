@@ -10,8 +10,8 @@ JavaFX Dialogs are simple dialogs in the style of [JOptionPane](http://docs.orac
 ### Usage ###
 For examples of how to use them see this blog post.
 
-### Download ###
-[JavaFX Dialogs 0.1.1](https://github.com/downloads/marcojakob/javafx-ui-sandbox/makery-javafx-dialogs-0.0.1.jar)
+### Download Jar ###
+[JavaFX Dialogs 0.0.1](https://github.com/downloads/marcojakob/javafx-ui-sandbox/makery-javafx-dialogs-0.0.1.jar)
 
 ### Changes ###
 
