@@ -3,7 +3,7 @@
 	<property name="version">0.0.1</property>
 
 	<property name="targetFolder">target</property>
-	<property name="jarName">makery-javafx-dialogs-${version}.jar</property>
+	<property name="jarName">javafx-dialogs-${version}.jar</property>
 
 	<target name="main" depends="jar" />
 
@@ -12,6 +12,7 @@
 			<fileset dir="${basedir}/bin" />
 			<fileset dir="${basedir}/src" includes="**/*.java" />
 			<fileset file="${basedir}/LICENSE" />
+			<fileset file="${basedir}/README.md" />
 		</jar>
 	</target>
 </project>

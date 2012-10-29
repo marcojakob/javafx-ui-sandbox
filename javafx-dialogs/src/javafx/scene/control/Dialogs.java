@@ -22,11 +22,10 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package ch.makery.javafx.dialog;
+package javafx.scene.control;
 
-import static ch.makery.javafx.dialog.Dialogs.DialogResources.*;
-import static ch.makery.javafx.dialog.Dialogs.DialogResponse.*;
-
+import static javafx.scene.control.Dialogs.DialogResources.*;
+import static javafx.scene.control.Dialogs.DialogResponse.*;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.URL;
@@ -56,16 +55,9 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Control;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
@@ -91,17 +83,23 @@ import com.sun.javafx.scene.control.skin.resources.ControlResources;
  * <p>
  * Note: This is a copy of the official OpenJFX UI Sandbox Control revision rt-9e5ef340d95f.
  * It contains some modifications:
- * - Use of a separate css file
- * - Fixed bug: Input dialog did only return String from text box if enter was used. Buttons 
- * 				did not work.
- * - Fixed bug: Input dialog with input choices did not return the initially selected object
- * 				if the combo box was not changed by the user.
+ * <ul>
+ *   <li>Use of a separate css file</li>
+ *   <li>Fixed bug: Input dialog did only return String from text box if enter was used. Buttons 
+ * 				did not work.</li>
+ * 	 <li>Fixed bug: Input dialog with input choices did not return the initially selected object
+ * 				if the combo box was not changed by the user.</li>
+ * 	 <li>Using binding for user input response.</li>
+ * </ul>
  * 
- * @author Marco Jakob
+ * @author OpenJFX Authors
+ * @author Marco Jakob (http://edu.makery.ch)
  */
 public class Dialogs {
 	
+	// !CHANGE START! use a separate css file
 	private static final URL DIALOGS_CSS_URL = FXDialog.class.getResource("dialogs.css");
+	// !CHANGE END!
     
     
     /***************************************************************************
@@ -495,6 +493,7 @@ public class Dialogs {
     }
     
     private static <T> T showUserInputDialog(DialogTemplate<T> template) {
+    	// !CHANGE START! return null if user did not click ok
 		template.getDialog().centerOnScreen();
 		template.show();
 		if (template.getResponse() == OK) {
@@ -502,6 +501,7 @@ public class Dialogs {
 		} else {
 			return null;
 		}
+		// !CHANGE END!
     }
     
     /**
@@ -534,7 +534,9 @@ public class Dialogs {
         // for user input dialogs (textfield / choicebox / combobox)
         private T initialInputValue;
         private List<T> inputChoices;
+        // !CHANGE START! change to property so we can use binding
         private Property<T> userInputResponse;
+        // !CHANGE END!
 
 
         // masthead
@@ -689,10 +691,12 @@ public class Dialogs {
         }
 
         public T getInputResponse() {
+        	// !CHANGE START!
         	if (userInputResponse != null) {
         		return userInputResponse.getValue();
         	}
         	return null;
+        	// !CHANGE END!
         }
 
 
@@ -798,6 +802,7 @@ public class Dialogs {
                 }
             } else if (style == DialogStyle.INPUT) {
                 Control inputControl = null;
+                // !CHANGE START!
                 userInputResponse = new SimpleObjectProperty<T>();
                 if (inputChoices == null || inputChoices.isEmpty()) {
                     // no input constraints, so use a TextField
@@ -815,6 +820,11 @@ public class Dialogs {
                     inputControl = textField;
                 } else {
                     // input method will be constrained to the given choices
+//                    ChangeListener<T> changeListener = new ChangeListener<T>() {
+//                        @Override public void changed(ObservableValue<? extends T> ov, T t, T t1) {
+//                            userInputResponse = t1;
+//                        }
+//                    };
 
                     if (inputChoices.size() > 10) {
                         // use ComboBox
@@ -833,6 +843,7 @@ public class Dialogs {
                         userInputResponse.bind(choiceBox.valueProperty());
                         inputControl = choiceBox;
                     }
+                    // !CHANGE END!
                 }
 
                 HBox hbox = new HBox(10);
@@ -1045,7 +1056,9 @@ public class Dialogs {
             Scene scene;
             if (stageStyle == StageStyle.DECORATED) {
                 scene = new Scene(root);
+                // !CHANGE START!
                 scene.getStylesheets().addAll(DIALOGS_CSS_URL.toExternalForm());
+                // !CHANGE END!
                 setScene(scene);
                 return;
             }
@@ -1062,12 +1075,14 @@ public class Dialogs {
             };
             decoratedRoot.getChildren().add(root);
             scene = new Scene(decoratedRoot);
+            // !CHANGE START!
             String css = (String) AccessController.doPrivileged(new PrivilegedAction() {
                 @Override public Object run() {
                     return DIALOGS_CSS_URL.toExternalForm();
                 }
             });
             scene.getStylesheets().addAll(css);
+            // !CHANGE END!
             scene.setFill(Color.TRANSPARENT);
             setScene(scene);
 
@@ -1227,8 +1242,10 @@ public class Dialogs {
              *                                                                 *
              *******************************************************************/
 
+        	// !CHANGE START!
             private static final long PSEUDO_CLASS_ACTIVE_MASK = 
                     StyleManager.getInstance().getPseudoclassMask("active");
+            // !CHANGE END!
 
             @Override public long impl_getPseudoClassState() {
                 long mask = super.impl_getPseudoClassState();
@@ -1306,7 +1323,7 @@ public class Dialogs {
     static class DialogResources {
         // Localization strings.
         private final static ResourceBundle dialogsResourceBundle = 
-                ResourceBundle.getBundle("ch.makery.javafx.dialog.resources.dialog-resources");
+                ResourceBundle.getBundle("com.sun.javafx.scene.control.skin.resources.dialog-resources");
 
         /**
          * Method to get an internationalized string from the deployment resource.

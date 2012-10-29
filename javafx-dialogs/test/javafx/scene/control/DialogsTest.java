@@ -1,11 +1,11 @@
-package ch.makery.javafx.dialog;
+package javafx.scene.control;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javafx.application.Application;
+import javafx.scene.control.Dialogs.DialogResponse;
 import javafx.stage.Stage;
-import ch.makery.javafx.dialog.Dialogs.DialogResponse;
 
 /**
  * Just some simple system.out tests. I didn't want to use a testing framework for this.
@@ -24,7 +24,7 @@ public class DialogsTest extends Application {
 		
 		String chosen = Dialogs.showInputDialog(primaryStage, "message", "masterhead", "title");
 		System.out.println(chosen);
-//		
+		
 //		String chosen2 = Dialogs.showInputDialog(primaryStage, "message", "masterhead", "title", "initialValue");
 //		System.out.println(chosen2);
 //		
