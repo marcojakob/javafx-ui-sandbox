@@ -2,7 +2,7 @@
 <project default="main">
 	<property name="version">0.0.1</property>
 
-	<property name="targetFolder">target</property>
+	<property name="targetFolder">dist</property>
 	<property name="jarName">javafx-dialogs-${version}.jar</property>
 
 	<target name="main" depends="jar" />
