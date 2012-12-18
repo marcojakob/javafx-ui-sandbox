@@ -14,7 +14,8 @@ JavaFX Dialogs are simple dialogs in the style of [JOptionPane](http://docs.orac
 For examples of how to use them see this [JavaFX 2 Dialog blog post](http://edu.makery.ch/blog/2012/10/30/javafx-2-dialogs/).
 
 ### Download Jar ###
-[JavaFX Dialogs 0.0.1](https://github.com/downloads/marcojakob/javafx-ui-sandbox/javafx-dialogs-0.0.1.jar)
+
+[JavaFX Dialogs 0.0.1](https://www.dropbox.com/s/894i21d532gn9h0/javafx-dialogs-0.0.1.jar)
 
 ### Changes ###
 
