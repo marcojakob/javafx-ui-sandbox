@@ -1361,7 +1361,7 @@ public class Dialogs {
                     new PrivilegedExceptionAction<ImageView>()   {
                         @Override public ImageView run() {
                             String resourceName = getString(key);
-                            URL url = ControlResources.class.getResource(resourceName);
+                            URL url = DialogResources.class.getResource(resourceName);
                             if (url == null) {
                                 System.out.println("Can't create ImageView for key '" + key + 
                                         "', which has resource name '" + resourceName + 
