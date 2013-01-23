@@ -18,9 +18,12 @@ For examples of how to use them see this [JavaFX 2 Dialog blog post](http://edu.
 
 or
 
-[JavaFX Dialogs 0.0.1](https://www.dropbox.com/s/894i21d532gn9h0/javafx-dialogs-0.0.1.jar)
+[JavaFX Dialogs 0.0.2](https://github.com/zheismann/javafx-ui-sandbox/blob/master/javafx-dialogs/dist/javafx-dialogs-0.0.2.jar)
 
 ### Changes ###
+
+#### JavaFX Dialogs 0.0.2 ####
+* Fixed bug: Images fail to load when running in webstart. https://github.com/marcojakob/javafx-ui-sandbox/issues/2 
 
 #### JavaFX Dialogs 0.0.1 ####
 JavaFX Dialogs is based on revision [rt-9e5ef340d95f](http://hg.openjdk.java.net/openjfx/sandbox-8/controls/rt/rev/9e5ef340d95f) of the official Open JFX Sandbox Dialogs.
