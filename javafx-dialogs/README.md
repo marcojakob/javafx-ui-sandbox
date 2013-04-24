@@ -8,9 +8,12 @@ JavaFX Dialogs are simple dialogs in the style of [JOptionPane](http://docs.orac
 For examples of how to use them see this [JavaFX 2 Dialog blog post](http://edu.makery.ch/blog/2012/10/30/javafx-2-dialogs/).
 
 ### Download Jar ###
-[JavaFX Dialogs 0.0.2](https://github.com/zheismann/javafx-ui-sandbox/blob/master/javafx-dialogs/dist/javafx-dialogs-0.0.2.jar)
+[JavaFX Dialogs 0.0.3](https://github.com/zheismann/javafx-ui-sandbox/blob/master/javafx-dialogs/dist/javafx-dialogs-0.0.3.jar)
 
 ### Changes ###
+
+#### JavaFX Dialogs 0.0.3 ####
+* Enhancement: Custom Dialogs [Issue #1](https://github.com/marcojakob/javafx-ui-sandbox/issues/1)
 
 #### JavaFX Dialogs 0.0.2 ####
 * Fixed bug: Images fail to load when running in webstart. https://github.com/marcojakob/javafx-ui-sandbox/issues/2 
