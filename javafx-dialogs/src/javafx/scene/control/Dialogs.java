@@ -24,8 +24,13 @@
  */
 package javafx.scene.control;
 
-import static javafx.scene.control.Dialogs.DialogResources.*;
-import static javafx.scene.control.Dialogs.DialogResponse.*;
+
+import static javafx.scene.control.Dialogs.DialogResources.getIcon;
+import static javafx.scene.control.Dialogs.DialogResources.getMessage;
+import static javafx.scene.control.Dialogs.DialogResources.getString;
+import static javafx.scene.control.Dialogs.DialogResponse.CLOSED;
+import static javafx.scene.control.Dialogs.DialogResponse.OK;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.URL;
@@ -57,7 +62,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
@@ -74,9 +78,9 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
+import javafx.util.Callback;
 
 import com.sun.javafx.css.StyleManager;
-import com.sun.javafx.scene.control.skin.resources.ControlResources;
 
 /**
  * A class containing a number of pre-built JavaFX modal dialogs.
@@ -416,6 +420,21 @@ public class Dialogs {
         return showUserInputDialog(template);
     }
     
+    /***************************************************************************
+     *                                                                         *
+     * Custom Content Dialog                                                   *
+     *                                                                         *
+     **************************************************************************/  
+
+    //Provided Pane is inserted in the content panel. Provided callback is added to buttons' onAction handler.
+    public static <T> DialogResponse showCustomDialog(final Stage owner, final Pane customContentPanel, final String masthead, final String title, DialogOptions options, Callback<java.lang.Void, java.lang.Void> callback) {
+        DialogTemplate<T> template = new DialogTemplate<T>(owner, customContentPanel, title, masthead, options); //DialogType.CUSTOM.defaultOptions);
+        template.setCustomContent(customContentPanel);
+        template.setCustomCallback(callback);
+        return showCustomDialog(template);
+	}
+
+	
     
     
     /***************************************************************************
@@ -440,6 +459,9 @@ public class Dialogs {
         },
         INPUT(DialogOptions.OK_CANCEL, "confirm48.image") {
             @Override public String getDefaultMasthead() { return "Select an Option"; }
+        },
+        CUSTOM(DialogOptions.OK, "info48.image") {
+            @Override public String getDefaultMasthead() { return "Message"; }
         };
         
         private final DialogOptions defaultOptions;
@@ -495,7 +517,22 @@ public class Dialogs {
 		}
 		// !CHANGE END!
     }
-    
+
+	private static DialogResponse showCustomDialog(DialogTemplate template) {
+		try {
+			//template.options = DialogType.CUSTOM.defaultOptions;
+			template.getDialog().centerOnScreen();
+			template.show();
+	        return template.getResponse();
+		} catch (Throwable e) {
+			return CLOSED;
+		}
+//		if (template.getResponse() == OK) {
+//			return template.getInputResponse();
+//		} else {
+//			return null;
+//		}
+	}    
     /**
      * 
      * @param <T> The type for user input
@@ -504,7 +541,8 @@ public class Dialogs {
         private static enum DialogStyle {
             SIMPLE,
             ERROR,
-            INPUT;
+            INPUT,
+            CUSTOM;
         }
 
         // Defines max dialog width.
@@ -561,6 +599,10 @@ public class Dialogs {
         // These are for security dialog only.
         private String[] alertStrs;
         private String[] infoStrs;
+        
+        //Custom panel
+        private Pane customContentPanel;
+		private Callback<Void, Void> callback;
 
 
 
@@ -578,6 +620,15 @@ public class Dialogs {
 
             this.mastheadString = masthead;
             this.options = options;
+        }
+
+        public void setCustomCallback(Callback<Void, Void> callback) {
+        	this.callback = callback;
+		}
+
+		DialogTemplate(Stage owner, Pane customContent, String title, String masthead, DialogOptions options) {
+        	this(owner, title, masthead, options);
+        	this.customContentPanel = customContent;
         }
 
 
@@ -644,6 +695,21 @@ public class Dialogs {
             this.inputChoices = choices;
 
             contentPane.getChildren().add(createMasthead());
+            contentPane.getChildren().add(createCenterPanel());
+
+            Pane bottomPanel = createBottomPanel();
+            if (bottomPanel != null) {
+                contentPane.getChildren().add(bottomPanel);
+            }
+
+            dialog.setResizable(false);
+        }
+        
+        void setCustomContent(Pane customContent){
+        	this.style = DialogStyle.CUSTOM;
+        	this.customContentPanel = customContent;
+
+        	contentPane.getChildren().add(createMasthead());
             contentPane.getChildren().add(createCenterPanel());
 
             Pane bottomPanel = createBottomPanel();
@@ -850,6 +916,8 @@ public class Dialogs {
                 }
 
                 return hbox;
+            } else if(style == DialogStyle.CUSTOM){
+            	return customContentPanel;
             }
 
             return null;
@@ -898,6 +966,9 @@ public class Dialogs {
                 @Override public void handle(ActionEvent ae) {
                     userResponse = response;
 
+                    //If callback provided for custom dialog - call it. 
+                    if(callback != null){ callback.call(null);}
+                    
                     // hide the dialog.  We'll return from the dialog,
                     // and who ever called it will retrieve user's answer
                     // and will dispose of the dialog after that.
