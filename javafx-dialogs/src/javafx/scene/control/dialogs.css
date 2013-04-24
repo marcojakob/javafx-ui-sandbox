@@ -64,7 +64,7 @@
 
 .dialog .window-title {
     -fx-padding: 4 0 0 0;
-    -fx-alignment: bottom_center;
+    -fx-alignment: bottom-center;
     -fx-font: 15px "Amble Cn";
     -fx-text-fill: #808080;
 }
@@ -176,5 +176,5 @@
 
 .dialog .more-info-dialog .button-panel {
     -fx-padding: 12 0 12 12;
-    -fx-alignment: CENTER_RIGHT;
+    -fx-alignment: center-right;
 }
