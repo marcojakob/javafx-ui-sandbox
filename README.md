@@ -1,4 +1,12 @@
 # JavaFX UI Sandbox #
+
+---
+**Note:** If you are using JavaFX 8 you may want to check out the (official) [ControlsFX](http://fxexperience.com/controlsfx/) project which contains some nice widgets!
+This is the reason why this project will not be actively developed further and will only work for JavaFX 2.
+
+---
+
+
 Oracle has opened up the [JavaFX UI Sandbox repository](http://hg.openjdk.java.net/openjfx/sandbox-8/controls/rt) on OpenJFX as announced on the [fxExperience blog](http://fxexperience.com/2012/10/announcing-the-javafx-ui-controls-sandbox/). 
 Controls in the OpenJFX repository might eventually be included in a next JavaFX release.
 
