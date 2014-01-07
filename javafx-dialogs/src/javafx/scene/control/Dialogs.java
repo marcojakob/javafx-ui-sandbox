@@ -487,103 +487,81 @@ public class Dialogs {
         }
     }
     
+    private static void centerToOwner(DialogTemplate template) {
+        final FXDialog dialog = template.getDialog();
+        Window window = dialog.getOwner();
+
+        // get center of window
+        final double windowCenterX = window.getX() + (window.getWidth() / 2);
+        final double windowCenterY = window.getY() + (window.getHeight() / 2);
+
+        // verify
+        if(!Double.isNaN(windowCenterX)){
+            // set a temp position
+            dialog.setX(windowCenterX);
+            dialog.setY(windowCenterY);
+
+            // Since the dialog doesn't have a width or height till it's shown, calculate its position after it's shown
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    dialog.setX(windowCenterX - (dialog.getWidth() / 2));
+                    dialog.setY(windowCenterY - (dialog.getHeight() / 2));
+                }
+            });
+        }
+        else {
+            template.getDialog().centerOnScreen();
+        }
+    }
+
     private static DialogResponse showSimpleContentDialog(final Stage owner,
-                                        final String title, final String masthead, 
-                                        final String message, DialogType dialogType,
-                                        final DialogOptions options) {
+                                                          final String title, final String masthead,
+                                                          final String message, DialogType dialogType,
+                                                          final DialogOptions options) {
         DialogTemplate template = new DialogTemplate(owner, title, masthead, options);
         template.setSimpleContent(message, dialogType);
         return showDialog(template);
     }
-    
+
     private static DialogResponse showDialog(DialogTemplate template) {
         try {
-            final FXDialog dialog = template.getDialog();
-            Window window = dialog.getOwner();
-
-            // get center of window
-            final double windowCenterX = window.getX() + (window.getWidth() / 2);
-            final double windowCenterY = window.getY() + (window.getHeight() / 2);
-
-            // verify
-            if(windowCenterX != Double.NaN){
-                // set a temp position
-                dialog.setX(windowCenterX);
-                dialog.setY(windowCenterY);
-
-                // Since the dialog doesn't have a width or height till it's shown, calculate its position after it's shown
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        dialog.setX(windowCenterX - (dialog.getWidth() / 2));
-                        dialog.setY(windowCenterY - (dialog.getHeight() / 2));
-                    }
-                });
-            }
-            else {
-                template.getDialog().centerOnScreen();
-            }
-
+            centerToOwner(template);
             template.show();
             return template.getResponse();
         } catch (Throwable e) {
             return CLOSED;
         }
     }
-    
+
     private static <T> T showUserInputDialog(DialogTemplate<T> template) {
-    	// !CHANGE START! return null if user did not click ok
-		template.getDialog().centerOnScreen();
-		template.show();
-		if (template.getResponse() == OK) {
-			return template.getInputResponse();
-		} else {
-			return null;
-		}
-		// !CHANGE END!
+        // !CHANGE START! return null if user did not click ok
+        centerToOwner(template);
+        template.show();
+        if (template.getResponse() == OK) {
+            return template.getInputResponse();
+        } else {
+            return null;
+        }
+        // !CHANGE END!
     }
 
-	private static DialogResponse showCustomDialog(DialogTemplate template) {
-		try {
-			//template.options = DialogType.CUSTOM.defaultOptions;
-			final FXDialog dialog = template.getDialog();
-            Window window = dialog.getOwner();
-
-            // get center of window
-            final double windowCenterX = window.getX() + (window.getWidth() / 2);
-            final double windowCenterY = window.getY() + (window.getHeight() / 2);
-
-            // verify
-            if(windowCenterX != Double.NaN){
-                // set a temp position
-                dialog.setX(windowCenterX);
-                dialog.setY(windowCenterY);
-
-                // Since the dialog doesn't have a width or height till it's shown, calculate its position after it's shown
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        dialog.setX(windowCenterX - (dialog.getWidth() / 2));
-                        dialog.setY(windowCenterY - (dialog.getHeight() / 2));
-                    }
-                });
-            }
-            else {
-                template.getDialog().centerOnScreen();
-            }
-
+    private static DialogResponse showCustomDialog(DialogTemplate template) {
+        try {
+            //template.options = DialogType.CUSTOM.defaultOptions;
+            centerToOwner(template);
             template.show();
             return template.getResponse();
-	        return template.getResponse();
-		} catch (Throwable e) {
-			return CLOSED;
-		}
+        } catch (Throwable e) {
+            return CLOSED;
+        }
 //		if (template.getResponse() == OK) {
 //			return template.getInputResponse();
 //		} else {
 //			return null;
 //		}
-	}    
+    }
+    
     /**
      * 
      * @param <T> The type for user input
