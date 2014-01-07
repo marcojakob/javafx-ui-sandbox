@@ -498,7 +498,32 @@ public class Dialogs {
     
     private static DialogResponse showDialog(DialogTemplate template) {
         try {
-            template.getDialog().centerOnScreen();
+            final FXDialog dialog = template.getDialog();
+            Window window = dialog.getOwner();
+
+            // get center of window
+            final double windowCenterX = window.getX() + (window.getWidth() / 2);
+            final double windowCenterY = window.getY() + (window.getHeight() / 2);
+
+            // verify
+            if(windowCenterX != Double.NaN){
+                // set a temp position
+                dialog.setX(windowCenterX);
+                dialog.setY(windowCenterY);
+
+                // Since the dialog doesn't have a width or height till it's shown, calculate its position after it's shown
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        dialog.setX(windowCenterX - (dialog.getWidth() / 2));
+                        dialog.setY(windowCenterY - (dialog.getHeight() / 2));
+                    }
+                });
+            }
+            else {
+                template.getDialog().centerOnScreen();
+            }
+
             template.show();
             return template.getResponse();
         } catch (Throwable e) {
@@ -521,8 +546,34 @@ public class Dialogs {
 	private static DialogResponse showCustomDialog(DialogTemplate template) {
 		try {
 			//template.options = DialogType.CUSTOM.defaultOptions;
-			template.getDialog().centerOnScreen();
-			template.show();
+			final FXDialog dialog = template.getDialog();
+            Window window = dialog.getOwner();
+
+            // get center of window
+            final double windowCenterX = window.getX() + (window.getWidth() / 2);
+            final double windowCenterY = window.getY() + (window.getHeight() / 2);
+
+            // verify
+            if(windowCenterX != Double.NaN){
+                // set a temp position
+                dialog.setX(windowCenterX);
+                dialog.setY(windowCenterY);
+
+                // Since the dialog doesn't have a width or height till it's shown, calculate its position after it's shown
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        dialog.setX(windowCenterX - (dialog.getWidth() / 2));
+                        dialog.setY(windowCenterY - (dialog.getHeight() / 2));
+                    }
+                });
+            }
+            else {
+                template.getDialog().centerOnScreen();
+            }
+
+            template.show();
+            return template.getResponse();
 	        return template.getResponse();
 		} catch (Throwable e) {
 			return CLOSED;
