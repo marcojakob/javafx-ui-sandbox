@@ -488,12 +488,20 @@ public class Dialogs {
     }
     
     private static void centerToOwner(DialogTemplate template) {
-        final FXDialog dialog = template.getDialog();
+        FXDialog dialog = template.getDialog();
         Window window = dialog.getOwner();
 
+        if(!centerToOwner(window, dialog)){
+            template.getDialog().centerOnScreen();
+        }
+    }
+
+    private static boolean centerToOwner(Window window, FXDialog inDialog) {
         // get center of window
         final double windowCenterX = window.getX() + (window.getWidth() / 2);
         final double windowCenterY = window.getY() + (window.getHeight() / 2);
+
+        final FXDialog dialog = inDialog;
 
         // verify
         if(!Double.isNaN(windowCenterX)){
@@ -505,13 +513,24 @@ public class Dialogs {
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    dialog.setX(windowCenterX - (dialog.getWidth() / 2));
-                    dialog.setY(windowCenterY - (dialog.getHeight() / 2));
+                    double x = windowCenterX - (dialog.getWidth() / 2);
+                    double y = windowCenterY - (dialog.getHeight() / 2);
+
+                    // we don't want the top left of the dialog to shoot off the screen
+                    if(x < 0)
+                        x = 0;
+                    if(y < 0)
+                        y = 0;
+
+                    dialog.setX(x);
+                    dialog.setY(y);
                 }
             });
+
+            return true;
         }
         else {
-            template.getDialog().centerOnScreen();
+            return false;
         }
     }
 
@@ -966,7 +985,9 @@ public class Dialogs {
                     Button detailsBtn = new Button((detailBtnStr == null) ? "" : getMessage(detailBtnStr));
                     detailsBtn.setOnAction(new EventHandler<ActionEvent>() {
                         @Override public void handle(ActionEvent ae) {
-                            new ExceptionDialog(dialog, throwable).show();
+                            ExceptionDialog dia = new ExceptionDialog(dialog, throwable);
+                            centerToOwner(dialog, dia);
+                            dia.show();
                         }
                     });
                     buttons.add(detailsBtn);
