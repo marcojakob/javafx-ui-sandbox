@@ -1,8 +1,7 @@
 ## JavaFX Dialogs ##
 
 ---
-**Note:** If you are using JavaFX 8 you may want to check out the (official) [ControlsFX](http://fxexperience.com/controlsfx/) project which contains some nice dialogs!
-This is the reason why this project will not be actively developed further and will only work for JavaFX 2.
+**Note:** If you are using JavaFX 8 you may want to check out the [JavaFX 8 Dialogs blog post](http://code.makery.ch/blog/javafx-8-dialogs/) which explains how to use the great [ControlsFX](http://fxexperience.com/controlsfx/) dialogs!
 
 ---
 
@@ -12,7 +11,7 @@ JavaFX Dialogs are simple dialogs in the style of [JOptionPane](http://docs.orac
 *Image Source: http://fxexperience.com/2012/10/announcing-the-javafx-ui-controls-sandbox/*
 
 ### Usage ###
-For examples of how to use them see this [JavaFX 2 Dialog blog post](http://edu.makery.ch/blog/2012/10/30/javafx-2-dialogs/).
+For examples of how to use them see this [JavaFX 2 Dialog blog post](http://code.makery.ch/blog/javafx-2-dialogs/).
 
 ### Download Jar ###
 
