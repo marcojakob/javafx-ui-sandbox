@@ -1,7 +1,7 @@
 ## JavaFX Dialogs ##
 
 ---
-**Note:** If you are using JavaFX 8 you may want to check out the [JavaFX 8 Dialogs blog post](http://code.makery.ch/blog/javafx-8-dialogs/) which explains how to use the great [ControlsFX](http://fxexperience.com/controlsfx/) dialogs!
+**Note:** If you are using JavaFX 8 you may want to check out the [JavaFX 8 Dialogs blog post](http://code.makery.ch/blog/javafx-dialogs-official/) which explains how to use the official JavaFX Dialogs!
 
 ---
 
