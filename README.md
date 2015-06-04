@@ -1,7 +1,7 @@
 # JavaFX UI Sandbox #
 
 ---
-**Note:** If you are using JavaFX 8 you may want to check out the (official) [ControlsFX](http://fxexperience.com/controlsfx/) project which contains some nice widgets!
+**Note:** If you are using JavaFX 8 you may want to check out the (official) [official JavaFX Dialogs](http://code.makery.ch/blog/javafx-dialogs-official/)!
 This is the reason why this project will not be actively developed further and will only work for JavaFX 2.
 
 ---
