@@ -98,7 +98,6 @@ public class Dialogs {
 	private static final URL DIALOGS_CSS_URL = FXDialog.class.getResource("dialogs.css");
 	// !CHANGE END!
     
-    //asdasdasdsa
 	//Development
     /***************************************************************************
      *                                                                         *
